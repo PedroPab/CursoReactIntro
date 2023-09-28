@@ -1,0 +1,36 @@
+/* Estilos para la lista de tarjetas */
+.tarjetas {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Estilos para cada tarjeta */
+.tarjetas li {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilos para el primer span (emoji) */
+.tarjetas li span:first-child {
+  font-size: 24px;
+}
+
+/* Estilos para el párrafo */
+.tarjetas li p {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+/* Estilos para el último span (botón X) */
+.tarjetas li span:last-child {
+  cursor: pointer;
+  font-size: 24px;
+  color: #ff0000;
+}

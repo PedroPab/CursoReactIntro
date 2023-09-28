@@ -1,0 +1,19 @@
+/* Estilos para el contador */
+.contador {
+    font-size: 24px;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  /* Estilos para el número completado */
+  .completado {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el número total */
+  .total {
+    color: #ff0000;
+    font-weight: bold;
+  }
+  

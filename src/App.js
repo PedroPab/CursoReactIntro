@@ -1,36 +1,43 @@
-import logo from './platzi.webp';
-import './App.css';
-import { CreateButton, TodoList, TodoSearch, TodoTitle } from './TodoCounter';
+import React from 'react';
+
+import { TodoTitle } from './TodoTitle';
+import { TodoList } from './TodoList';
+import { TodoSearch } from './TodoSearch';
+import { CreateButton } from './CreateButton';
+import { TodoItem } from './TodoItem';
+
+const arrayTodos = [
+  { text: `La vida es vella`, complete: false },
+  { text: `Aprender ortografia`, complete: true },
+  { text: `Dormir`, complete: false },
+  { text: `Ir al bano`, complete: false },
+]
 
 function App() {
   return (
-    <div className="App">
-      <TodoTitle />
+    <>
+      <TodoTitle
+        complete={100}
+        total={85}
+      />
       <TodoSearch />
 
       <TodoList>
-
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
+        {arrayTodos.map(todo => (
+          <TodoItem
+            key={todo.text}
+            text={todo.text}
+            complete={todo.complete}
+          />
+        ))}
 
       </TodoList>
 
       <CreateButton />
-
-    </div>
+    </>
   );
 }
 
 
-export function TodoItem() {
-  return (
-    <li>
-      <span>V</span>
-      <p>Llorar porque  esta es vida es muy linda</p>
-      <span>X</span>
-    </li>
-  )
-}
 
 export default App;
