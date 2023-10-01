@@ -14,13 +14,25 @@ const arrayTodos = [
 ]
 
 function App() {
+  const [todos] = React.useState(arrayTodos)
+  const [searchValue, setSearchValue] = React.useState('')
+  console.log(`los usuariso buscano con el valor de ${searchValue}`)
+
+  const completeTodos = todos.filter(todo => !!todo.complete).length
+  const totalTodos = todos.length
+
+  
+
   return (
     <>
       <TodoTitle
-        complete={100}
-        total={85}
+        complete={completeTodos}
+        total={totalTodos}
       />
-      <TodoSearch />
+      <TodoSearch
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
 
       <TodoList>
         {arrayTodos.map(todo => (

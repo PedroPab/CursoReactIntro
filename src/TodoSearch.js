@@ -2,8 +2,7 @@ import React from 'react';
 import './TodoSearch.css'
 
 
-function TodoSearch() {
-    const [searchValue, setSearchValue] = React.useState('')
+function TodoSearch({searchValue, setSearchValue}) {
     console.log(`los usuariso buscano con el valor de ${searchValue}`)
 
 
