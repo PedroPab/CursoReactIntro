@@ -14,7 +14,7 @@ const arrayTodos = [
 ]
 
 function App() {
-  const [todos] = React.useState(arrayTodos)
+  const [todos, setTodos] = React.useState(arrayTodos)
   const [searchValue, setSearchValue] = React.useState('')
   console.log(`los usuariso buscano con el valor de ${searchValue}`)
 
@@ -22,14 +22,29 @@ function App() {
   const totalTodos = todos.length
 
   //codigo para mostra los todos en tiempso real segun la busqueda
-  const searchTodos = todos.filter(todo => todo.text.includes(searchValue))
-  const todoValues = searchTodos.map(todo => (
-    <TodoItem
-      key={todo.text}
-      text={todo.text}
-      complete={todo.complete}
-    />
-  ))
+  const searchTodos = todos.filter(todo => todo.text.toUpperCase().includes(searchValue.toUpperCase()))
+  const todoValues = searchTodos.map((todo, i, array) => {
+
+    const completFuncion = () => {
+      console.log(`se ejecuta el prodo para completear le todo`)
+      array[i].complete = true
+      setTodos(searchTodos)
+    }
+    const elimitFuncion = () => {
+      console.log(`se ejecuta el prodo para eliminar un todo`)
+      array.splice(i, 1) 
+      setTodos(searchTodos)
+    }
+    return (
+      <TodoItem
+        key={todo.text}
+        text={todo.text}
+        complete={todo.complete}
+        completarTodo={completFuncion}
+        eliminarTodo={elimitFuncion}
+      />
+    )
+  })
 
 
   return (

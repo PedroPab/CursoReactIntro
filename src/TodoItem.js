@@ -1,17 +1,17 @@
 import './TodoItem.css'
 
 
-function TodoItem({ text, complete }) {
+function TodoItem({ text, complete, completarTodo , eliminarTodo}) {
     let completado = "🎃"
     if (complete) completado = '🐸'
 
     return (
         <li>
-            <span>{completado}</span>
+            <span onClick={() => completarTodo()} >{completado}</span>
             <p>{text}</p>
-            <span>❌</span>
+            <span onClick={() => eliminarTodo()}>❌</span>
         </li>
     )
 }
 
-export { TodoItem}
+export { TodoItem }
