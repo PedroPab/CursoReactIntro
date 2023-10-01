@@ -21,7 +21,16 @@ function App() {
   const completeTodos = todos.filter(todo => !!todo.complete).length
   const totalTodos = todos.length
 
-  
+  //codigo para mostra los todos en tiempso real segun la busqueda
+  const searchTodos = todos.filter(todo => todo.text.includes(searchValue))
+  const todoValues = searchTodos.map(todo => (
+    <TodoItem
+      key={todo.text}
+      text={todo.text}
+      complete={todo.complete}
+    />
+  ))
+
 
   return (
     <>
@@ -35,14 +44,7 @@ function App() {
       />
 
       <TodoList>
-        {arrayTodos.map(todo => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            complete={todo.complete}
-          />
-        ))}
-
+        {todoValues}
       </TodoList>
 
       <CreateButton />
