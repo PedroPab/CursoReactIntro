@@ -25,23 +25,25 @@ function App() {
   const searchTodos = todos.filter(todo => todo.text.toUpperCase().includes(searchValue.toUpperCase()))
   const todoValues = searchTodos.map((todo, i, array) => {
 
-    const completFuncion = () => {
-      console.log(`se ejecuta el prodo para completear le todo`)
-      array[i].complete = true
-      setTodos(searchTodos)
+    const completFuncion = (key) => {
+      const array = [...todos]
+      const index = array.findIndex(todo => todo.text === key)
+      array[index].complete = true
+      setTodos(array)
     }
-    const elimitFuncion = () => {
-      console.log(`se ejecuta el prodo para eliminar un todo`)
-      array.splice(i, 1) 
-      setTodos(searchTodos)
+    const elimitFuncion = (key) => {
+      const array = [...todos]
+      const index = array.findIndex(todo => todo.text === key)
+      array.splice(index, 1)
+      setTodos(array)
     }
     return (
       <TodoItem
         key={todo.text}
         text={todo.text}
         complete={todo.complete}
-        completarTodo={completFuncion}
-        eliminarTodo={elimitFuncion}
+        completarTodo={() => { completFuncion(todo.text) }}
+        eliminarTodo={() => { elimitFuncion(todo.text) }}
       />
     )
   })
