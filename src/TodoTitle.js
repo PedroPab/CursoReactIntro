@@ -1,6 +1,6 @@
 import './TodoTile.css'
 
-function TodoTitle({ total, complete }) {
+function TodoTitle({ total, complete, message }) {
     return (
         <h1
             className="contador">
@@ -9,6 +9,7 @@ function TodoTitle({ total, complete }) {
             </span> de <span className="total">
                 {total}
             </span>
+            <h2>{message}</h2>
         </h1>
 
     )

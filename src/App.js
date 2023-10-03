@@ -5,21 +5,20 @@ import { TodoList } from './TodoList';
 import { TodoSearch } from './TodoSearch';
 import { CreateButton } from './CreateButton';
 import { TodoItem } from './TodoItem';
+import { recogerTodos } from './recojerTodos';
+import { updateTodos } from './updateTodos';
 
-const arrayTodos = [
-  { text: `La vida es vella`, complete: false },
-  { text: `Aprender ortografia`, complete: true },
-  { text: `Dormir`, complete: false },
-  { text: `Ir al bano`, complete: false },
-]
 
 function App() {
+  const arrayTodos = recogerTodos()
+
   const [todos, setTodos] = React.useState(arrayTodos)
   const [searchValue, setSearchValue] = React.useState('')
   console.log(`los usuariso buscano con el valor de ${searchValue}`)
 
   const completeTodos = todos.filter(todo => !!todo.complete).length
   const totalTodos = todos.length
+  const messageFelicitaciones = completeTodos >= totalTodos ? 'Feliciataicones haz completado todos los todos' : ''
 
   //codigo para mostra los todos en tiempso real segun la busqueda
   const searchTodos = todos.filter(todo => todo.text.toUpperCase().includes(searchValue.toUpperCase()))
@@ -30,12 +29,14 @@ function App() {
       const index = array.findIndex(todo => todo.text === key)
       array[index].complete = true
       setTodos(array)
+      updateTodos(array)
     }
     const elimitFuncion = (key) => {
       const array = [...todos]
       const index = array.findIndex(todo => todo.text === key)
       array.splice(index, 1)
       setTodos(array)
+      updateTodos(array)
     }
     return (
       <TodoItem
@@ -54,6 +55,7 @@ function App() {
       <TodoTitle
         complete={completeTodos}
         total={totalTodos}
+        message={messageFelicitaciones}
       />
       <TodoSearch
         searchValue={searchValue}
