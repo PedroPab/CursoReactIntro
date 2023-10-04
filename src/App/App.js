@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { TodoTitle } from './TodoTitle';
-import { TodoList } from './TodoList';
-import { TodoSearch } from './TodoSearch';
-import { CreateButton } from './CreateButton';
-import { TodoItem } from './TodoItem';
-import { recogerTodos } from './recojerTodos';
-import { updateTodos } from './updateTodos';
+import { AppUi } from './AppUI';
+import { TodoItem } from '../TodoItem/TodoItem';
+import { UselocalStorage } from '../utils/recojerTodos';
 
 
+const arrayTodos = [
+  { text: `La vida es vella`, complete: false },
+  { text: `Aprender ortografia`, complete: true },
+  { text: `Dormir`, complete: false },
+  { text: `Ir al bano`, complete: false },
+]
 function App() {
-  const arrayTodos = recogerTodos()
+  const [todos, setTodos] = UselocalStorage({ itemName: `TODO_V1`, valueInit: arrayTodos })
 
-  const [todos, setTodos] = React.useState(arrayTodos)
   const [searchValue, setSearchValue] = React.useState('')
-  console.log(`los usuariso buscano con el valor de ${searchValue}`)
 
   const completeTodos = todos.filter(todo => !!todo.complete).length
   const totalTodos = todos.length
@@ -29,14 +29,12 @@ function App() {
       const index = array.findIndex(todo => todo.text === key)
       array[index].complete = true
       setTodos(array)
-      updateTodos(array)
     }
     const elimitFuncion = (key) => {
       const array = [...todos]
       const index = array.findIndex(todo => todo.text === key)
       array.splice(index, 1)
       setTodos(array)
-      updateTodos(array)
     }
     return (
       <TodoItem
@@ -52,21 +50,14 @@ function App() {
 
   return (
     <>
-      <TodoTitle
-        complete={completeTodos}
-        total={totalTodos}
-        message={messageFelicitaciones}
-      />
-      <TodoSearch
+      <AppUi
+        completeTodos={completeTodos}
+        totalTodos={totalTodos}
+        messageFelicitaciones={messageFelicitaciones}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
+        todoValues={todoValues}
       />
-
-      <TodoList>
-        {todoValues}
-      </TodoList>
-
-      <CreateButton />
     </>
   );
 }
