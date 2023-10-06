@@ -1,44 +1,45 @@
 import React from 'react';
 
-function UselocalStorage({ itemName, valueInit }) {
-    const [item, setItem] = React.useState(valueInit)
-    const [loading, setLoading] = React.useState(true)
-    const [error, setError] = React.useState(false)
+function useLocalStorage({ itemName, initialValue }) {
+    const [item, setItem] = React.useState(initialValue);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(false);
+
 
     React.useEffect(() => {
-        try {
+        setTimeout(() => {
+            try {
+                const localStorageItem = localStorage.getItem(itemName);
 
-            let rta
-            const itemLocal = localStorage.getItem(itemName)
+                let parsedItem;
 
-            if (!itemLocal) {
-                const itemRta = JSON.stringify(valueInit)
-                localStorage.setItem(itemName, itemRta)
-                rta = valueInit
-                setItem(rta)
+                if (!localStorageItem) {
+                    localStorage.setItem(itemName, JSON.stringify(initialValue));
+                    parsedItem = initialValue;
+                } else {
+                    parsedItem = JSON.parse(localStorageItem);
+                    setItem(parsedItem);
+                }
+
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                setError(true);
             }
-            else {
-                rta = JSON.parse(itemLocal)
-                if (rta.length === 0) rta = valueInit
-            }
+        }, 3000);
+    }, []);
 
-            setLoading(false)
-        } catch (error) {
-            setError(true)
-            setLoading(false)
-        }
-    })
-
-
-
-    const updateItem = (newItem) => {
-        const itemRta = JSON.stringify(newItem)
-        localStorage.setItem(itemName, itemRta)
-        setItem(newItem)
-    }
-    console.log(`rta hola`, item)
-
-    return { item, updateItem, loading, error }
+    const saveItem = (newItem) => {
+        localStorage.setItem(itemName, JSON.stringify(newItem));
+        setItem(newItem);
+    };
+    console.log(`loandein ${loading} error ${error}`);
+    return {
+        item,
+        saveItem,
+        loading,
+        error,
+    };
 }
 
-export { UselocalStorage }
+export { useLocalStorage }
