@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AppUi } from './AppUI';
-import { TodoItem } from '../TodoItem/TodoItem';
 import { UselocalStorage } from '../utils/recojerTodos';
 
 
@@ -9,10 +8,11 @@ const arrayTodos = [
   { text: `La vida es vella`, complete: false },
   { text: `Aprender ortografia`, complete: true },
   { text: `Dormir`, complete: false },
-  { text: `Ir al bano`, complete: false },
+  { text: `Ir al bano`, complete: true },
 ]
 function App() {
-  const [todos, setTodos] = UselocalStorage({ itemName: `TODO_V1`, valueInit: arrayTodos })
+
+  const { item: todos, updateItem: setTodos, loading, error } = UselocalStorage({ itemName: `TODO_V1`, valueInit: arrayTodos })
 
   const [searchValue, setSearchValue] = React.useState('')
 
@@ -21,42 +21,46 @@ function App() {
   const messageFelicitaciones = completeTodos >= totalTodos ? 'Feliciataicones haz completado todos los todos' : ''
 
   //codigo para mostra los todos en tiempso real segun la busqueda
-  const searchTodos = todos.filter(todo => todo.text.toUpperCase().includes(searchValue.toUpperCase()))
-  const todoValues = searchTodos.map((todo, i, array) => {
 
-    const completFuncion = (key) => {
-      const array = [...todos]
-      const index = array.findIndex(todo => todo.text === key)
-      array[index].complete = true
-      setTodos(array)
+  const searchedTodos = todos.filter(
+    (todo) => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return todoText.includes(searchText);
     }
-    const elimitFuncion = (key) => {
-      const array = [...todos]
-      const index = array.findIndex(todo => todo.text === key)
-      array.splice(index, 1)
-      setTodos(array)
-    }
-    return (
-      <TodoItem
-        key={todo.text}
-        text={todo.text}
-        complete={todo.complete}
-        completarTodo={() => { completFuncion(todo.text) }}
-        eliminarTodo={() => { elimitFuncion(todo.text) }}
-      />
-    )
-  })
+  );
+  console.log("🚀 ~ file: App.js:32 ~ App ~ searchedTodos:", searchedTodos)
+
+
+  const completFuncion = (key) => {
+    console.log(`hola esto seio cmpletse ${key}`)
+    
+    const array = [...todos]
+    const index = array.findIndex(todo => todo.text === key)
+    array[index].complete = true
+    setTodos(array)
+  }
+  const elimitFuncion = (key) => {
+    const array = [...todos]
+    const index = array.findIndex(todo => todo.text === key)
+    array.splice(index, 1)
+    setTodos(array)
+  }
 
 
   return (
     <>
       <AppUi
+        loading={loading}
+        error={error}
         completeTodos={completeTodos}
         totalTodos={totalTodos}
         messageFelicitaciones={messageFelicitaciones}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
-        todoValues={todoValues}
+        searchedTodos={searchedTodos}
+        completeTodo={completFuncion}
+        deleteTodo={elimitFuncion}
       />
     </>
   );

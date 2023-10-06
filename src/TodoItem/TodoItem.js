@@ -3,15 +3,16 @@ import './TodoItem.css'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BsFillTrash3Fill } from 'react-icons/bs'
 
-function TodoItem({ text, complete, completarTodo, eliminarTodo }) {
+function TodoItem({ text, complete, onComplete, onDelete }) {
+    console.log("🚀 ~ file: TodoItem.js:7 ~ TodoItem ~ { text, complete, onComplete, onDelete }:", { text, complete, onComplete, onDelete })
     let completado = <AiOutlineCheck/>
     if (complete) completado = <BsFillTrash3Fill/>
 
     return (
         <li>
-            <span onClick={completarTodo} > {completado} </span>
+            <span onClick={onComplete} > {completado} </span>
             <p>{text}</p>
-            <span onClick={eliminarTodo}>❌</span>
+            <span onClick={onDelete}>❌</span>
         </li>
     )
 }
