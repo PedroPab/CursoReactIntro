@@ -10,13 +10,14 @@ const arrayTodos = [
     { text: `Aprender ortografia`, complete: true },
     { text: `Dormir`, complete: false },
     { text: `Ir al bano`, complete: true },
-  ]
+]
 function TodoProvider({ children }) {
 
     const { item: todos, saveItem: setTodos, loading, error } = useLocalStorage({ itemName: `TODO_V1`, initialValue: arrayTodos })
     console.log(todos);
     console.log("🚀 ~ file: App.js:17 ~ App ~ todos:", todos)
     const [searchValue, setSearchValue] = React.useState('')
+    const [openModal, setOpenModal] = React.useState(false)
 
     const completeTodos = todos.filter(todo => !!todo.complete).length
     const totalTodos = todos.length
@@ -46,6 +47,11 @@ function TodoProvider({ children }) {
         setTodos(array)
     }
 
+    const addTodo = (value) => {
+        const array = [...todos]
+        array.push({ text: value, complete: false })
+        setTodos(array)
+    }
 
 
     return (
@@ -58,8 +64,11 @@ function TodoProvider({ children }) {
             messageFelicitaciones,
             setSearchValue,
             searchedTodos,
-            completFuncion,
+            completeTodo: completFuncion,
             elimitFuncion,
+            openModal,
+            setOpenModal,
+            addTodo,
         }}>
             {children}
         </TodoContex.Provider>

@@ -1,0 +1,42 @@
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    resize: vertical;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  
+  .buttonCancelarTodo {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .buttonAceptarTodo {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
