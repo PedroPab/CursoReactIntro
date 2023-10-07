@@ -1,6 +1,14 @@
+import React from 'react'
 import './TodoTile.css'
+import { TodoContex } from '../TodosContex/TodosContex'
 
-function TodoTitle({ total, complete, message }) {
+function TodoTitle() {
+    const {
+        completeTodos: complete,
+        totalTodos: total,
+        messageFelicitaciones: message
+    } = React.useContext(TodoContex)
+
     return (
         <h1
             className="contador">

@@ -8,8 +8,17 @@ import { TodosLoading } from '../TodosLoading/TodosLoading';
 import { TodosError } from '../TodosError/TodosError';
 import { EmptyTodos } from '../EmptyTodos/EmptyTodos.js';
 import { TodoContex } from '../TodosContex/TodosContex';
+import React from 'react';
 
 function AppUi() {
+    const {
+        loading,
+        error,
+        searchedTodos,
+        completeTodo,
+        elimitFuncion,
+    } = React.useContext(TodoContex)
+
     return (
         <>
             <TodoTitle
@@ -21,38 +30,29 @@ function AppUi() {
             // searchValue={searchValue}
             // setSearchValue={setSearchValue}
             />
-            <TodoContex.Consumer>
-                {({
-                    loading,
-                    error,
-                    searchedTodos,
-                    completeTodo,
-                    deleteTodo,
-                }) => (
-                    <TodoList>
-                        {loading &&
-                            <div>
-                                <TodosLoading />
-                                <TodosLoading />
-                                <TodosLoading />
-                            </div>
-                        }
-                        {error && <TodosError />}
-                        {(!loading && searchedTodos.length === 0) && <EmptyTodos />}
 
-                        {!loading && searchedTodos.map(todo => (
-                            <TodoItem
-                                key={todo.text}
-                                text={todo.text}
-                                complete={todo.complete}
-                                onComplete={() => completeTodo(todo.text)}
-                                onDelete={() => deleteTodo(todo.text)}
-                            />
-                        ))}
-                    </TodoList>
-                )}
+            <TodoList>
+                {loading &&
+                    <div>
+                        <TodosLoading />
+                        <TodosLoading />
+                        <TodosLoading />
+                    </div>
+                }
+                {error && <TodosError />}
+                {(!loading && searchedTodos.length === 0) && <EmptyTodos />}
 
-            </TodoContex.Consumer>
+                {!loading && searchedTodos.map(todo => (
+                    <TodoItem
+                        key={todo.text}
+                        text={todo.text}
+                        complete={todo.complete}
+                        onComplete={() => completeTodo(todo.text)}
+                        onDelete={() => elimitFuncion(todo.text)}
+                    />
+                ))}
+            </TodoList>
+
 
 
             <CreateButton />

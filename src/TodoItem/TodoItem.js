@@ -6,7 +6,6 @@ import { BsFillTrash3Fill } from 'react-icons/bs'
 function TodoItem({ text, complete, onComplete, onDelete }) {
     let completado = <AiOutlineCheck/>
     if (complete) completado = <BsFillTrash3Fill/>
-
     return (
         <li>
             <span onClick={onComplete} > {completado} </span>
